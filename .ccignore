@@ -1,0 +1,12 @@
+bootstrap
+database
+storage
+tests
+vendor
+/app/Console
+/app/Events
+/app/Exceptions
+/app/Jobs
+/app/Listeners
+/app/Policies
+/app/Providers
