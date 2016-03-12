@@ -9,7 +9,6 @@
     <meta name="keywords" content="">
     <meta name="author" content="">
 
-
     {!! HTML::style('packages/jacopo/laravel-authentication-acl/css/bootstrap.min.css') !!}
     {!! HTML::style('packages/jacopo/laravel-authentication-acl/css/style.css') !!}
     {!! HTML::style('packages/jacopo/laravel-authentication-acl/css/baselayout.css') !!}
