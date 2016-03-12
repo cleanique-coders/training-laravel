@@ -156,8 +156,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        /* Laravel ACL */
+        /*
+         * Laravel Authentication ACL
+         */
         LaravelAcl\Authentication\AuthenticationServiceProvider::class
+
 
     ],
 

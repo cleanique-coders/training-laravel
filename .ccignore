@@ -1,8 +1,9 @@
 bootstrap
-database
 storage
 tests
 vendor
+database
+public
 /app/Console
 /app/Events
 /app/Exceptions

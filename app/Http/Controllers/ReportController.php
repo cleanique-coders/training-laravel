@@ -8,7 +8,8 @@ use App\Http\Requests;
 
 class ReportController extends Controller
 {
-    public function index() {
-    	return view('report.index');
+    public function index()
+    {
+    	return 'hellow report';
     }
 }

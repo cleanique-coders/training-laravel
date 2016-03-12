@@ -11,15 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-// Route::get('/admin/task','TaskController@index');
-// Route::get('/admin/task/{id}','TaskController@show');
-// //Route::get('/admin/task/edit/{id}','TaskController@edit');
-// Route::post('/admin/task/update', 'TaskController@update');
-// Route::get('/admin/task/delete/{id}','TaskController@delete');
+Route::get('/', 'HomeController@index');
+Route::get('dashboard', 'HomeController@dashboard');
+Route::get('report','ReportController@index');
 
 /*
 |--------------------------------------------------------------------------
@@ -32,22 +26,30 @@ Route::get('/', function () {
 |
 */
 
-Route::group(['middleware' => ['web', 'has_perm:_task-editor']], function () {
-    Route::get('/admin/task','TaskController@index');
-	Route::get('/admin/task/show/{id}','TaskController@show');
-	Route::get('/admin/task/edit/{id}','TaskController@edit');
-	Route::get('/admin/task/delete/{id}','TaskController@delete');
-	
-	// display add new task form
-	Route::get('/admin/task/create', [
-		'as' => 'addTask', 
-		'uses' => 'TaskController@create'
-	]);
+Route::group(
+	[
+		'middleware' => [
+			'web',
+			'has_perm:_read-task,_create-task,_update-task,_delete-task'
+		],
+		'as' => 'admin::',
+		'prefix' => 'admin'
+	], function () {
+    
+	Route::get('task', 'TaskController@index');
 
-	// update task data
-	Route::post('/admin/task/update', 'TaskController@update');
+	// get tasks based on status
+	Route::get('task/status/{status}','TaskController@getTaskByStatus');
 
-	// save the input. create new record
-	Route::post('/admin/task/store', 'TaskController@store');
+	// delete task based on provided id
+	Route::get('task/delete/{id}', 'TaskController@destroy');
+
+	// create task
+	Route::get('task/add', 'TaskController@create');
+	Route::post('task/store', 'TaskController@store');
+
+	// update task
+	Route::get('task/edit/{id}', 'TaskController@edit');
+	Route::post('task/update', 'TaskController@update');
 
 });

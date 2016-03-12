@@ -1,0 +1,199 @@
+# Create New Laravel Project
+composer create-project laravel/laravel training-laravel-kb  --prefer-dist
+
+cd [project-name]
+php artisan clear-compiled
+php artisan optimize
+php artisan key:generate
+
+------------------
+
+How to setup page
+
+1. set the route - route name, controller@method
+2. create controller - php artisan make:controller NameController
+3. verify route - php artisan route:list
+4. create method(in NameController) used in route
+5. verify route via web browser
+
+------------------
+
+How to setup page layout
+
+1. Which UI framework, eg. Bootstrap, Zurb Foundation
+2. Setup layouts folder
+	resources/views/layouts
+		index.blade.php
+		default.blade.php
+		admin.blade.php
+		public.blade.php
+
+------------------
+
+How to include assets files - styles & javascripts
+
+1. For Styles
+	<link rel="stylesheet" type="text/css" href="{!! URL::asset('assets/css/app.css'); !!}">
+2. For Scripts
+	<script type="text/javascript" src="{!! URL::asset('assets/js/app.js'); !!}"></script>
+
+------------------
+
+How to setup particular view
+
+1. Extend layouts
+	@extends('layouts.default') - using layout called default in layouts folder
+
+2. Put some content using section
+	@section('contents')
+		some content here
+	@stop - define what's content in content's section
+
+3. @yield('content') - output `content` value
+
+4. @include('partials.navbar') - include part of view
+
+-----------------
+
+HTML Helper
+
+https://laravelcollective.com/docs/5.0/html#installation
+
+-----------------
+
+Configure Database
+
+1. Create database
+2. Configure database setting - open .env file
+	- different port, just append `DB_HOST=127.0.0.1` with colon following with the port number
+		-> DB_HOST=127.0.0.1:3307
+3. Test Database Connection
+	- paste the following in any controller method and try to access it via route name
+		-> dd(\DB::select('show tables'));
+
+-----------------
+
+Database - Schema/Migration Scripts
+
+1. Create migration script
+	php artisan make:migration create_tasks_table --create=tasks
+2. Create schema in migration script - refer to DB design
+3. Create migrations table
+	- php artisan migrate:install
+4. Check migration status
+	- php artisan migrate:status
+5. Run migration status
+	- php artisan migrate
+6. Verify via phpmyadmin / sqlyog
+
+
+-----------------
+
+Database - Factory
+
+1. Create Model
+	- php artisan make:model Task
+2. Define our model factory data
+	- reference: https://github.com/fzaninotto/Faker
+
+-----------------
+
+Database - Seeds
+
+1. Create seeder file
+	- php artisan make:seeder TaskSeeder
+2. Update TaskSeeder to:
+	- include respective Model Class 
+		-> use App\Task;
+	- Truncate respective table 
+		-> DB::table('tasks')->truncate();
+	- Seed data using factory 
+		-> factory(App\Task::class, 1000)->create();
+	- Output message on completion
+		-> $this->command->info('tasks table seeded!');
+3. Call TaskSeeder::class from DatabaseSeeder.php
+	- $this->call(TaskSeeder::class);
+4. Run the Seeder
+	- php artisan db:seed
+
+-----------------
+
+Eloquent
+
+1. Create model with migration script
+	php artisan make:model Task -m
+2. Get Data
+	- find
+		-> findOrFail
+	- first
+		-> firstOrFail
+3. Delete data
+	- create route, accept parameter id
+	- create controller(if not exist yet)
+	- create method
+		- App\ClassName::destroy($id);
+		- redirect('some route');
+	- create view
+		- create a link to delete a record
+		- on click delete link record, ask for confirmation to delete a record
+		- create javascript confirmation to delete when click on delete button
+4. Insert & Update Data
+	- similar to add data - form for diplay, a route for process the input
+
+-----------------
+
+Authentication, Authorization & Access Control List
+
+ -- Refer slide for installation --
+
+1. Setup Main Menu
+	- config/acl_menu.php
+2. Setup Sidebar Menu\
+
+3. Setup Permissions
+	- go to Permissions, create new permission
+	- go groups, create a new group / use existing group, add permissions to the selected group
+	- assign group to the user
+	- go to app/Http/routes.php
+		-> add a group route
+		-> include middleware 'has_perm:_permission-name-one,_permission-name-two'
+
+-----------------
+
+Migration: Update Schema
+
+1. Create migration script
+	php artisan make:migration update_tasks_table --table=tasks
+
+2. Update our migration script
+	$this->integer('user_id');
+
+3. Migrate the script
+	php artisan migrate
+
+4. Re-seed
+	php artisan db:seed
+
+----------------
+
+Eloquent: Relationship
+
+1. A user has many task
+	- one to many
+		-> open User.php
+		-> create new method named tasks()
+			return $this->hasMany('App\Task')
+
+----------------
+
+Check if user has particular permissions - 
+
+1. see sample in TaskController.php
+
+2. Check permissions - it will return true or false
+	$can_delete = \App::make('authentication_helper')->hasPermission(['_delete-task']);
+
+3. In view - task/list.blade.php, on delete element
+	@if($can_delete)
+		<a href="#" onclick="confirm_delete({{ $tugasan->id }})"><i class="glyphicon glyphicon-trash"></i></a>
+	@endif

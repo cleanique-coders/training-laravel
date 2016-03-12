@@ -1,9 +1,9 @@
 @extends('laravel-authentication-acl::admin.layouts.base-1cols')
 
 @section('content')
-
-	<div class="well well-small">
-		<form class="form-horizontal" method="post" action="/admin/task/store">
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12 well well-small">
+		<form class="form-horizontal" method="post" action="{!! url('admin/task/store') !!}">
 			<fieldset>
 
 			{!! csrf_field() !!}
@@ -32,14 +32,13 @@
 			  <label class="col-md-4 control-label" for="submit"></label>
 			  <div class="col-md-8">
 			    <button id="submit" name="submit" class="btn btn-success">Save</button>
-			    <a id="cancel" name="cancel" href="#" class="btn btn-danger" onclick="window.location = '/admin/task'">Cancel</a>
+			    <a id="cancel" name="cancel" href="{!! url('admin/task/status/New') !!}" class="btn btn-danger" >Cancel</a>
 			  </div>
 			</div>
 
 			</fieldset>
 
-			</form>
-
+		</form>
 	</div>
-
+</div>
 @stop

@@ -22,8 +22,14 @@
 
 $factory->define(App\Task::class, function (Faker\Generator $faker) {
     return [
-        'user_id' => rand(1,2),
         'name' => $faker->name,
-        'description' => $faker->text(500)
+        'user_id' => rand(1,2),
+        'description' => $faker->text(500),
+        'status' => $faker->randomElement([
+                'New', 
+                'In Progress', 
+                'Cancelled', 
+                'Done'
+            ])
     ];
 });

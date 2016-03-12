@@ -5,39 +5,68 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+
 use App\Task;
-use App\User;
 
 class TaskController extends Controller
 {
-    public function index() 
+    public function index()
+    {
+    	return view('task.index');
+    }
+
+    public function getTaskByStatus($status)
     {
         $user = \App::make('authenticator')->getLoggedUser();
 
+        $list = \App\User::find($user->id)
+                        ->tasks()
+                        ->paginate(15);
         $sidebar = [
             'Add New' => [
-                'url' => route('addTask'),
+                'url' => url('admin/task/add'),
                 'icon' => '<i class="fa fa-plus-circle"></i>'
             ]
         ];
-        $tasks = \App\User::find($user->id)->tasks()->paginate(15);
 
-    	return view('task.index')->with(
-            [
-                'tasks' => $tasks, 
-                'sidebar_items' => $sidebar
-            ]);
+        $can_delete = \App::make('authentication_helper')->hasPermission(['_delete-task']);
+
+    	// $list = Task::where('status', $status)
+    	// 	->orderBy('created_at','desc')
+    	// 	->paginate(15);
+    	
+    	return view('task.list')->with([
+            'senarai' => $list,
+            'sidebar_items' => $sidebar,
+            'can_delete' => $can_delete
+        ]);
     }
 
-    public function show($id) 
+    public function destroy($id)
     {
-    	$task = Task::find($id);
-
-    	return view('task.show')->with('task',$task);
+    	Task::destroy($id);
+    	return redirect('admin/task/status/New');
     }
 
-    public function create() {
-        return view('task.create');
+    public function create()
+    {
+    	// to display add new task form
+    	return view('task.create');
+    }
+
+    public function store(Request $request)
+    {
+    	if($request->isMethod('post')) 
+        {
+            $user = \App::make('authenticator')->getLoggedUser();
+            $task = new Task;
+            $task->user_id = $user->id;
+            $task->name = $request->input('name');
+            $task->description = $request->input('description');
+            $task->save();
+        } 
+
+    	return redirect('admin/task/status/New');
     }
 
     public function edit($id)
@@ -47,38 +76,17 @@ class TaskController extends Controller
         return view('task.edit')->with('task',$task);
     }
 
-    public function store(Request $request) 
+    public function update(Request $request) 
     {
         if($request->isMethod('post')) 
         {
-            $user = \App::make('authenticator')->getLoggedUser();
-            $task = new Task;
-            $task->user_id = $user->id;
+            $id = $request->input('id');
+            $task = Task::find($id);
             $task->name = $request->input('name');
             $task->description = $request->input('description');
             $task->save();
         } 
         
-        return redirect('/admin/task');
-    }
-
-    public function update(Request $request) 
-    {
-    	if($request->isMethod('post')) 
-    	{
-            $id = $request->input('id');
-    		$task = Task::find($id);
-            $task->name = $request->input('name');
-            $task->description = $request->input('description');
-            $task->save();
-    	} 
-        
-        return redirect('/admin/task');
-    }
-
-    public function delete($id)
-    {
-    	Task::destroy($id);
-        return redirect('/admin/task');
+        return redirect('admin/task/status/New');
     }
 }

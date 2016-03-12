@@ -18,9 +18,9 @@ return [
             ],
             [
                     "name"        => "Task",
-                    "route"       => "task",
-                    "link"        => '/admin/task',
-                    "permissions" => ['_task-editor']
+                    "route"       => "admin::task",
+                    "link"        => '/admin/task/status/New',
+                    "permissions" => ['_read-task']
             ],
             [
                 /*

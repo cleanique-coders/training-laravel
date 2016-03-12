@@ -1,46 +1,37 @@
-{{-- Layout base admin panel --}}
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="utf-8">
-    <title>@yield('title')</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <meta name="author" content="">
+	<title>Laravel Training @ ejoeSolutions</title>
 
-    {!! HTML::style('packages/jacopo/laravel-authentication-acl/css/bootstrap.min.css') !!}
-    {!! HTML::style('packages/jacopo/laravel-authentication-acl/css/style.css') !!}
-    {!! HTML::style('packages/jacopo/laravel-authentication-acl/css/baselayout.css') !!}
-    {!! HTML::style('packages/jacopo/laravel-authentication-acl/css/fonts.css') !!}
-    {!! HTML::style('//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css') !!}
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
-    @yield('head_css')
-    {{-- End head css --}}
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+	<link rel="stylesheet" type="text/css" href="{!! URL::asset('assets/css/app.css'); !!}">
 </head>
+<body>
 
-    <body>
-        {{-- navbar --}}
-        @include('laravel-authentication-acl::admin.layouts.navbar')
+	@include('partials.navbar')
 
-        {{-- content --}}
-        <div class="container-fluid">
-            @yield('container')
-        </div>
+	{{-- content --}}
+    <div class="container">
+        @yield('content')
+    </div>
 
-        {{-- Start footer scripts --}}
-        @yield('before_footer_scripts')
+    {{-- Start footer scripts --}} 
+    @yield('before_footer_scripts')
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="{!! URL::asset('assets/js/app.js'); !!}"></script>
 
-        {!! HTML::script('packages/jacopo/laravel-authentication-acl/js/vendor/jquery-1.10.2.min.js') !!}
-        {!! HTML::script('packages/jacopo/laravel-authentication-acl/js/vendor/bootstrap.min.js') !!}
-
-        @yield('footer_scripts')
-        {{-- End footer scripts --}}
-    </body>
+    {{-- End footer scripts --}}
+    @yield('footer_scripts')
+    
+</body>
 </html>
