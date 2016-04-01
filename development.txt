@@ -1,0 +1,13 @@
+1. create project
+2. create database
+3. configure database connection in .env
+
+0. setup route using 
+	- Route::resource('name','controllerName');
+1. create model + migration script
+	- php artisan make:model ModelName -m
+2. create controller + --resource
+	- php artisan make:controller NameController --resource
+3. create seeder
+	- php artisan make:seeder TableNameSeeder
+4. create view
