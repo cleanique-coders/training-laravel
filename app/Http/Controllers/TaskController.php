@@ -22,7 +22,7 @@ class TaskController extends Controller
 
         // Step 2
         // $tasks = Task::all();
-        $tasks = Task::paginate(5);
+        $tasks = Task::orderBy('created_at','desc')->paginate(5);
         return view('task.index',
             [
                 'title' => $title,
@@ -101,14 +101,10 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if($request->isMethod('post')) 
-        {
-            $id = $request->input('id');
-            $task = Task::find($id);
-            $task->name = $request->input('name');
-            $task->description = $request->input('description');
-            $task->save();
-        } 
+        $task = Task::find($id);
+        $task->name = $request->input('name');
+        $task->description = $request->input('description');
+        $task->save(); 
         
         return redirect('task');
     }

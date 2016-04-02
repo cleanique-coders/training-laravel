@@ -5,7 +5,7 @@
 
 <div class="row">
 	<div class="col-md-12 col-sm-12 col-xs-12 well well-small">
-		<form class="form-horizontal" method="post" action="{!! url('task/store') !!}">
+		<form class="form-horizontal" method="POST" action="{!! url('task') !!}">
 
 			<fieldset>
 

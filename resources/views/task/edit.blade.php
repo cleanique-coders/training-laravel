@@ -5,9 +5,9 @@
 <div class="row">
 	<div class="col-md-12 col-sm-12 col-xs-12">
 		<div class="well well-small">
-			<form class="form-horizontal" method="post" action="{!! url('task/update') !!}">
+			<form class="form-horizontal" method="post" action="{!! url('task/'.$task->id) !!}">
 				<fieldset>
-
+				<input type="hidden" name="_method" value="PUT">
 				{!! csrf_field() !!}
 
 				<!-- Form Name -->
@@ -40,7 +40,7 @@
 
 				</fieldset>
 
-				<input type="hidden" name="id" value="{{ $task->id }}">
+				
 				</form>
 
 		</div>
