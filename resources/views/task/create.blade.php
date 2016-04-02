@@ -14,6 +14,18 @@
 			<!-- Form Name -->
 			<legend>Add Task</legend>
 
+			<!-- User drop down list -->
+			<div class="form-group">
+			  <label class="col-md-4 control-label" for="user_id">User</label>  
+			  <div class="col-md-4">
+			  <select id="user_id" name="user_id" class="form-control">
+			  	@foreach($users as $user)
+			  		<option value="{!! $user->id !!}">{{ $user->name }}</option>
+			  	@endforeach
+			  </select>
+			  </div>
+			</div>
+
 			<!-- Text input-->
 			<div class="form-group">
 			  <label class="col-md-4 control-label" for="name">Task Name</label>  

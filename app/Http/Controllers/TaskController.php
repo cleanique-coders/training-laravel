@@ -8,6 +8,7 @@ use App\Http\Requests;
 
 // Step 1
 use App\Task;
+use App\User;
 
 class TaskController extends Controller
 {
@@ -26,7 +27,6 @@ class TaskController extends Controller
         return view('task.index',
             [
                 'title' => $title,
-
                 // Step 3
                 'tasks' => $tasks
             ]
@@ -41,7 +41,8 @@ class TaskController extends Controller
     public function create()
     {
         $title = 'Create Task';
-        return view('task.create',['title' => $title]);
+        $users = User::all();
+        return view('task.create',['title' => $title,'users' => $users]);
     }
 
     /**
@@ -55,6 +56,7 @@ class TaskController extends Controller
         if($request->isMethod('post')) 
         {
             $task = new Task;
+            $task->user_id = $request->input('user_id');
             $task->name = $request->input('name');
             $task->description = $request->input('description');
             $task->save();
