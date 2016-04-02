@@ -9,8 +9,11 @@
   <a href="{!! url('task/create') !!}" class="btn btn-success pull-right">Add New Task</a>
   <table class="table table-condensed table-hover">
   	<tr>
+  		<td>
+	  		Name
+	  	</td>
 	  	<td>
-	  		Title
+	  		Task
 	  	</td>
 	  	<td>
 	  		Description
@@ -24,6 +27,9 @@
   	</tr>
   	@forelse ($tasks as $task)
     	<tr>
+    		<td>
+		  		{{ $task->user->name }}
+		  	</td>
 		  	<td>
 		  		{{ $task->name }}
 		  	</td>
