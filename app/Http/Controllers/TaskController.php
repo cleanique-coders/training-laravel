@@ -22,7 +22,7 @@ class TaskController extends Controller
 
         // Step 2
         // $tasks = Task::all();
-        $tasks = Task::orderBy('created_at','desc')->paginate(5);
+        $tasks = Task::with('user')->orderBy('created_at','desc')->paginate(5);
         return view('task.index',
             [
                 'title' => $title,
