@@ -23,7 +23,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 $factory->define(App\Task::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
-        'user_id' => rand(1,2),
+        'user_id' => rand(1,10),
         'description' => $faker->text(500),
         'status' => $faker->randomElement([
             'New', 

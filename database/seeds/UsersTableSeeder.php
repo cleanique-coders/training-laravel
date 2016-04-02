@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class TasksTableSeeder extends Seeder
+class UsersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,12 +12,12 @@ class TasksTableSeeder extends Seeder
     public function run()
     {
         // Empty the tasks table
-        App\Task::truncate();
+        App\User::truncate();
 
         // Create a thousand tasks
-        factory(App\Task::class, 1000)->create();
+        factory(App\User::class, 10)->create();
 
         // Debug message
-        $this->command->info('tasks table seeded!');
+        $this->command->info('users table seeded!');
     }
 }
