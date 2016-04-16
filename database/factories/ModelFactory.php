@@ -11,25 +11,18 @@
 |
 */
 
-/*$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
-        'email' => $faker->email,
+        'email' => $faker->safeEmail,
         'password' => bcrypt(str_random(10)),
         'remember_token' => str_random(10),
     ];
-});*/
+});
 
 $factory->define(App\Task::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
-        'user_id' => rand(1,2),
-        'description' => $faker->text(500),
-        'status' => $faker->randomElement([
-                'New', 
-                'In Progress', 
-                'Cancelled', 
-                'Done'
-            ])
+        'description' => $faker->text()
     ];
 });

@@ -46,11 +46,8 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'can' => \Illuminate\Foundation\Http\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'admin_logged' => \LaravelAcl\Http\Middleware\AdminLogged::class, 
-        'logged' => \LaravelAcl\Http\Middleware\Logged::class, 
-        'can_see' => \LaravelAcl\Http\Middleware\CanSee::class, 
-        'has_perm' => \LaravelAcl\Http\Middleware\HasPerm::class,
     ];
 }
